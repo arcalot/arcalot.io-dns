@@ -33,7 +33,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Replace API key
         run: |
-          sed -i -e 's/API_KEY/${secrets.GANDI_API_KEY}/' dns_records.yaml
+          sed -i -e 's/API_KEY/${{ secrets.GANDI_API_KEY }}/' dns_records.yaml
       - name: DNS update
         run: |
           set -e
