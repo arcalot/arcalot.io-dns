@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=schema.json
+domain: arcalot.io
+request:
+  items:
+    - rrset_name: "@"
+      rrset_type: A
+      rrset_values:
+        - "185.199.109.153"
+        - "185.199.108.153"
+        - "185.199.110.153"
+        - "185.199.111.153"
+      rrset_ttl: 3600
+    - rrset_name: "@"
+      rrset_type: "MX"
+      rrset_values:
+        - "10 spool.mail.gandi.net."
+        - "50 fb.mail.gandi.net."
+      rrset_ttl: 10800
+    - rrset_name: "@"
+      rrset_type: "TXT"
+      rrset_values:
+        - "v=spf1 include:_mailcust.gandi.net ?all"
+      rrset_ttl: 10800
+    - rrset_name: "_github-challenge-arcalot-org"
+      rrset_type: "TXT"
+      rrset_values:
+        - "5b8179e09b"
+      rrset_ttl: 10800
+    - rrset_name: "flow"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "arcalot.github.io."
+      rrset_ttl: 3600
+    - rrset_name: "gm1._domainkey"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "gm1.gandimail.net."
+      rrset_ttl: 10800
+    - rrset_name: "gm2._domainkey"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "gm2.gandimail.net."
+      rrset_ttl: 10800
+    - rrset_name: "gm3._domainkey"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "gm3.gandimail.net."
+      rrset_ttl: 10800
+    - rrset_name: "log"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "arcalot.github.io."
+      rrset_ttl: 3600
+    - rrset_name: "www"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "arcalot.github.io."
+      rrset_ttl: 3600
+# Do not change this line, it will be replaced by CI:
+api_key: "API_KEY"

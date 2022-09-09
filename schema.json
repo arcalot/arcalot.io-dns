@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "SetDNSZoneInput": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "minLength": 1,
+          "title": "API key",
+          "description": "Gandi API key for updating live DNS. Request at https://account.gandi.net/en ."
+        },
+        "domain": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-.]+$",
+          "title": "Domain name",
+          "description": "Name of the domain to change."
+        },
+        "request": {
+          "$ref": "#/$defs/PutDomainRecordsRequest",
+          "title": "Domain configuration",
+          "description": "Settings for the domain's DNS record"
+        },
+        "endpoint": {
+          "type": "string",
+          "examples": [
+            "https://api.gandi.net/v5/",
+            "https://api.sandbox.gandi.net/v5/"
+          ],
+          "default": "https://api.gandi.net/v5/",
+          "title": "API endpoint",
+          "description": "API endpoint for managing Gandi resources. Defaults to the production API."
+        }
+      },
+      "required": [
+        "api_key",
+        "domain",
+        "request"
+      ],
+      "additionalProperties": false,
+      "dependentRequired": {}
+    },
+    "PutDomainRecordsRequest": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DNSRecord"
+          },
+          "title": "DNS records",
+          "description": "DNS records to set on this zone. All records that are not set will be removed, except forthe NS record if the remove apex NS filed is not set."
+        },
+        "remove_apex_ns": {
+          "anyOf": [
+            {
+              "title": "Boolean",
+              "type": "boolean"
+            },
+            {
+              "title": "String",
+              "type": "string",
+              "enum": [
+                "yes",
+                "y",
+                "true",
+                "on",
+                "enable",
+                "enabled",
+                "1",
+                "no",
+                "n",
+                "false",
+                "off",
+                "disable",
+                "disabled",
+                "0"
+              ]
+            },
+            {
+              "title": "Integer",
+              "type": "integer",
+              "maximum": 1,
+              "minimum": 0
+            }
+          ],
+          "default": false,
+          "title": "The default behavior is to keep the NS records on the zone if no NS records are provided in this input.Setting this field to true will remove the NS records in all cases, possibly resulting in an unusable zone."
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": false,
+      "dependentRequired": {}
+    },
+    "DNSRecord": {
+      "type": "object",
+      "properties": {
+        "rrset_name": {
+          "type": "string",
+          "title": "Record name",
+          "description": "Name of the record."
+        },
+        "rrset_type": {
+          "type": "string",
+          "enum": [
+            "A",
+            "AAAA",
+            "ALIAS",
+            "CAA",
+            "CDS",
+            "CNAME",
+            "DNAME",
+            "DS",
+            "KEY",
+            "LOC",
+            "MX",
+            "NAPTR",
+            "NS",
+            "OPENPGPKEY",
+            "PTR",
+            "RP",
+            "SPF",
+            "SRV",
+            "SSHFP",
+            "TLSA",
+            "TXT",
+            "WKS"
+          ],
+          "title": "Record type",
+          "description": "DNS record type."
+        },
+        "rrset_values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Values",
+          "description": "List of values for this DNS record."
+        },
+        "rrset_ttl": {
+          "type": "integer",
+          "minimum": 300000000,
+          "maximum": 2592000000000,
+          "title": "Time To Live",
+          "description": "Time for how long this record may be cached."
+        }
+      },
+      "required": [
+        "rrset_name",
+        "rrset_type",
+        "rrset_values",
+        "rrset_ttl"
+      ],
+      "additionalProperties": false,
+      "dependentRequired": {}
+    }
+  },
+  "type": "object",
+  "properties": {
+    "api_key": {
+      "type": "string",
+      "minLength": 1,
+      "title": "API key",
+      "description": "Gandi API key for updating live DNS. Request at https://account.gandi.net/en ."
+    },
+    "domain": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-.]+$",
+      "title": "Domain name",
+      "description": "Name of the domain to change."
+    },
+    "request": {
+      "$ref": "#/$defs/PutDomainRecordsRequest",
+      "title": "Domain configuration",
+      "description": "Settings for the domain's DNS record"
+    },
+    "endpoint": {
+      "type": "string",
+      "examples": [
+        "https://api.gandi.net/v5/",
+        "https://api.sandbox.gandi.net/v5/"
+      ],
+      "default": "https://api.gandi.net/v5/",
+      "title": "API endpoint",
+      "description": "API endpoint for managing Gandi resources. Defaults to the production API."
+    }
+  },
+  "required": [
+    "api_key",
+    "domain",
+    "request"
+  ],
+  "additionalProperties": false,
+  "dependentRequired": {},
+  "title": "Set DNS zone on Gandi input",
+  "description": "Completely replaces the DNS zone on Gandi live DNS.",
+  "$id": "gandi_set_dns_zone",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

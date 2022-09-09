@@ -1,0 +1,2 @@
+git+https://github.com/arcalot/arcaflow-plugin-sdk-python@main
+requests
