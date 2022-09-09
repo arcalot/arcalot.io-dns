@@ -31,6 +31,11 @@ request:
       rrset_values:
         - "arcalot.github.io."
       rrset_ttl: 3600
+    - rrset_name: "python-sdk.flow"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "readthedocs.io."
+      rrset_ttl: 3600
     - rrset_name: "gm1._domainkey"
       rrset_type: "CNAME"
       rrset_values:
