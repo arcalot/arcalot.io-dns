@@ -36,7 +36,8 @@ jobs:
           sed -i -e 's/API_KEY/${secrets.GANDI_API_KEY}/' dns_records.yaml
       - name: DNS update
         run: |
-          ./gandi_dns_plugin -f dns_records.yaml | tee /tmp/response.yaml
+          set -e
+          ./gandi_dns_plugin.py -f dns_records.yaml | tee /tmp/response.yaml
           rm -rf /tmp/response.yaml
           if [ $(cat /tmp/response.yaml | grep 'output_id: success' | wc -l) -ne 1 ]; then
             exit 1
