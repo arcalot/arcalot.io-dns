@@ -20,7 +20,7 @@ jobs:
   update:
     name: Run DNS update
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'main')
+    if: startsWith(github.ref, 'refs/heads/main')
     needs: ["build"]
     steps:
       - name: Check out code
