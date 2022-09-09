@@ -38,7 +38,8 @@ jobs:
         run: |
           set -e
           ./gandi_dns_plugin.py -f dns_records.yaml | tee /tmp/response.yaml
-          rm -rf /tmp/response.yaml
           if [ $(cat /tmp/response.yaml | grep 'output_id: success' | wc -l) -ne 1 ]; then
+            rm -rf /tmp/response.yaml
             exit 1
           fi
+          rm -rf /tmp/response.yaml
