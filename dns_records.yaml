@@ -66,5 +66,10 @@ request:
       rrset_values:
         - "arcalot.github.io."
       rrset_ttl: 3600
+    - rrset_name: "doc.log"
+      rrset_type: "CNAME"
+      rrset_values:
+        - "arcalot.github.io."
+      rrset_ttl: 3600
 # Do not change this line, it will be replaced by CI:
 api_key: "API_KEY"
