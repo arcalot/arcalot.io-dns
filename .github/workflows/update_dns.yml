@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/heads/main')
     needs: ["build"]
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Check out code
         uses: actions/checkout@v4
