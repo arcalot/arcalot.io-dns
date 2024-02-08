@@ -98,7 +98,8 @@ class RequestTests(unittest.TestCase):
     @mock.patch('requests.put', side_effect=mock_api_key_failure)
     def test_bad_api_key(self, m):
         output_id, output_data = gandi_dns_plugin.set_dns_zone(
-            gandi_dns_plugin.SetDNSZoneInput(
+            run_id = "ci",
+            params = gandi_dns_plugin.SetDNSZoneInput(
                 api_key="asdf",
                 domain="arcalot.io",
                 request=gandi_dns_plugin.PutDomainRecordsRequest(
@@ -111,7 +112,8 @@ class RequestTests(unittest.TestCase):
     @mock.patch('requests.put', side_effect=mock_access_denied)
     def test_access_denied(self, m):
         output_id, output_data = gandi_dns_plugin.set_dns_zone(
-            gandi_dns_plugin.SetDNSZoneInput(
+            run_id = "ci",
+            params = gandi_dns_plugin.SetDNSZoneInput(
                 api_key="asdf",
                 domain="arcalot.io",
                 request=gandi_dns_plugin.PutDomainRecordsRequest(
@@ -124,7 +126,8 @@ class RequestTests(unittest.TestCase):
     @mock.patch('requests.put', side_effect=mock_connection_failed)
     def test_connection_failed(self, m):
         output_id, output_data = gandi_dns_plugin.set_dns_zone(
-            gandi_dns_plugin.SetDNSZoneInput(
+            run_id = "ci",
+            params = gandi_dns_plugin.SetDNSZoneInput(
                 api_key="asdf",
                 domain="arcalot.io",
                 request=gandi_dns_plugin.PutDomainRecordsRequest(
