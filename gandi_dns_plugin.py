@@ -222,7 +222,7 @@ def set_dns_zone(set_dns_zone_input: SetDNSZoneInput) -> typing.Tuple[
 ]:
     serialized_input = json.dumps(_request_schema.serialize(set_dns_zone_input.request))
     headers = {
-        "Authorization": "Apikey " + set_dns_zone_input.api_key,
+        "Authorization": "Bearer " + set_dns_zone_input.api_key,
         "Content-Type": "application/json",
         "Accept": "application/json",
         "User-agent": "Gandi Arcaflow plugin"
