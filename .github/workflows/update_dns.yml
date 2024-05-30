@@ -8,41 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run tests
         run: python -m unittest discover
-  update:
-    name: Run DNS update
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/main')
-    needs: ["build"]
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Check out code
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
-      - name: Set up Python
-        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5
-        with:
-          python-version: 3.9
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Replace API key
-        run: |
-          sed -i -e 's/API_KEY/${{ secrets.GANDI_API_KEY }}/' dns_records.yaml
       - name: DNS update
+        if: startsWith(github.ref, 'refs/heads/main')
         run: |
           set -e
+          sed -i -e 's/API_KEY/${{ secrets.GANDI_API_KEY }}/' dns_records.yaml
           ./gandi_dns_plugin.py -f dns_records.yaml | tee /tmp/response.yaml
-          if [ $(cat /tmp/response.yaml | grep 'output_id: success' | wc -l) -ne 1 ]; then
-            rm -rf /tmp/response.yaml
-            exit 1
-          fi
+          grep -q 'output_id: success' /tmp/response.yaml && rc=$? || rc=$?
           rm -rf /tmp/response.yaml
+          exit $rc
